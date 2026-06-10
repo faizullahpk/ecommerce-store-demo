@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKMART - Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <span class="logo-jk">JK</span><span class="logo-mart">MART</span>
+            </div>
+            <div class="preloader-tagline">Admin Dashboard</div>
+            <div class="preloader-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-bg">
+            <div class="shape s1"></div>
+            <div class="shape s2"></div>
+            <div class="shape s3"></div>
+        </div>
+        <div class="login-card" data-tilt>
+            <div class="login-logo">
+                <div class="logo-icon"><i class="fas fa-leaf"></i></div>
+                <h1><span class="logo-jk">JK</span><span class="logo-mart">MART</span></h1>
+                <p>Admin Dashboard Login</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+                <p class="login-hint">
+                    <i class="fas fa-info-circle"></i> Default: <b>admin</b> / <b>admin123</b>
+                </p>
+                <a href="../index.html" class="back-to-site">
+                    <i class="fas fa-arrow-left"></i> Back to Website
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-wrapper" id="adminWrapper" style="display:none;">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="sidebar-logo">
+                    <div class="logo-icon"><i class="fas fa-leaf"></i></div>
+                    <div>
+                        <h2><span class="logo-jk">JK</span><span class="logo-mart">MART</span></h2>
+                        <small>Admin Panel</small>
+                    </div>
+                </a>
+                <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Main</div>
+                <a href="#" class="sidebar-link active" data-tab="dashboard">
+                    <i class="fas fa-gauge"></i> Dashboard
+                </a>
+                <a href="#" class="sidebar-link" data-tab="products">
+                    <i class="fas fa-box"></i> Products
+                </a>
+                <a href="#" class="sidebar-link" data-tab="add-product">
+                    <i class="fas fa-plus-circle"></i> Add Product
+                </a>
+                <a href="#" class="sidebar-link" data-tab="categories">
+                    <i class="fas fa-tags"></i> Categories
+                </a>
+                <div class="nav-section-title">Settings</div>
+                <a href="#" class="sidebar-link" data-tab="site-info">
+                    <i class="fas fa-globe"></i> Site Info
+                </a>
+                <a href="#" class="sidebar-link" data-tab="contact-info">
+                    <i class="fas fa-address-card"></i> Contact Info
+                </a>
+                <div class="nav-section-title">Other</div>
+                <a href="../index.html" class="sidebar-link">
+                    <i class="fas fa-external-link-alt"></i> View Site
+                </a>
+                <a href="#" class="sidebar-link logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="topbar-title">
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <p id="pageSubtitle">Welcome back, Admin!</p>
+                </div>
+                <div class="topbar-actions">
+                    <button class="topbar-btn"><i class="fas fa-bell"></i><span class="badge">3</span></button>
+                    <div class="topbar-user">
+                        <div class="user-avatar"><i class="fas fa-user"></i></div>
+                        <div class="user-info">
+                            <h4>Admin</h4>
+                            <small>Administrator</small>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Tab Content -->
+            <div class="content-area">
+                <!-- Dashboard Tab -->
+                <div class="tab-content active" id="dashboard">
+                    <div class="stats-grid">
+                        <div class="stat-card" data-tilt>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #16a34a, #84cc16);">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalProducts">0</h3>
+                                <p>Total Products</p>
+                                <span class="stat-change up"><i class="fas fa-arrow-up"></i> 12.5%</span>
+                            </div>
+                        </div>
+                        <div class="stat-card" data-tilt>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+                                <i class="fas fa-shopping-basket"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="groceryCount">0</h3>
+                                <p>Grocery Items</p>
+                                <span class="stat-change up"><i class="fas fa-arrow-up"></i> 8.2%</span>
+                            </div>
+                        </div>
+                        <div class="stat-card" data-tilt>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
+                                <i class="fas fa-mortar-pestle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pansarCount">0</h3>
+                                <p>Pansar Items</p>
+                                <span class="stat-change up"><i class="fas fa-arrow-up"></i> 15.7%</span>
+                            </div>
+                        </div>
+                        <div class="stat-card" data-tilt>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="categoryCount">0</h3>
+                                <p>Categories</p>
+                                <span class="stat-change up"><i class="fas fa-arrow-up"></i> 4.3%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                            </div>
+                            <div class="quick-actions">
+                                <button class="quick-action" data-action="add-product">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span>Add New Product</span>
+                                </button>
+                                <button class="quick-action" data-action="site-info">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Edit Site Info</span>
+                                </button>
+                                <button class="quick-action" data-action="contact-info">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Update Contact</span>
+                                </button>
+                                <button class="quick-action" data-action="products">
+                                    <i class="fas fa-list"></i>
+                                    <span>Manage Products</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-clock-rotate-left"></i> Recent Products</h3>
+                            </div>
+                            <div class="recent-products" id="recentProducts">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Tab -->
+                <div class="tab-content" id="products">
+                    <div class="content-header">
+                        <div>
+                            <h2>All Products</h2>
+                            <p>Manage your store products</p>
+                        </div>
+                        <div class="content-actions">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="productSearch" placeholder="Search products...">
+                            </div>
+                            <select id="sectionFilter" class="filter-select">
+                                <option value="all">All Sections</option>
+                                <option value="grocery">Grocery</option>
+                                <option value="pansar">Pansar</option>
+                            </select>
+                            <button class="btn btn-primary" data-tab="add-product">
+                                <i class="fas fa-plus"></i> Add Product
+                            </button>
+                        </div>
+                    </div>
+                    <div class="products-table-wrapper">
+                        <table class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Section</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Rating</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Add/Edit Product Tab -->
+                <div class="tab-content" id="add-product">
+                    <div class="content-header">
+                        <div>
+                            <h2 id="productFormTitle">Add New Product</h2>
+                            <p>Fill in the product details below</p>
+                        </div>
+                    </div>
+                    <form class="admin-form" id="productForm">
+                        <input type="hidden" id="productId" value="">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Product Name *</label>
+                                <input type="text" id="prodName" required placeholder="e.g. Premium Basmati Rice">
+                            </div>
+                            <div class="form-group">
+                                <label>Section *</label>
+                                <select id="prodSection" required>
+                                    <option value="grocery">Grocery</option>
+                                    <option value="pansar">Pansar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Category *</label>
+                                <input type="text" id="prodCategory" required placeholder="e.g. rice, herbs, spices">
+                            </div>
+                            <div class="form-group">
+                                <label>Icon (Font Awesome class) *</label>
+                                <input type="text" id="prodIcon" required placeholder="e.g. fa-leaf" value="fa-box">
+                                <small>Browse icons at fontawesome.com</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Price (Rs.) *</label>
+                                <input type="number" id="prodPrice" required min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Old Price (Rs.)</label>
+                                <input type="number" id="prodOldPrice" min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Stock Quantity *</label>
+                                <input type="number" id="prodStock" required min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Rating (0-5)</label>
+                                <input type="number" id="prodRating" min="0" max="5" step="0.1" value="4.5">
+                            </div>
+                            <div class="form-group">
+                                <label>Reviews Count</label>
+                                <input type="number" id="prodReviews" min="0" value="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Badge Text</label>
+                                <input type="text" id="prodBadge" placeholder="e.g. New, Best Seller">
+                            </div>
+                            <div class="form-group">
+                                <label>Badge Type</label>
+                                <select id="prodBadgeType">
+                                    <option value="default">Default (Orange)</option>
+                                    <option value="organic">Organic (Green)</option>
+                                    <option value="new">New (Blue)</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label>Description</label>
+                                <textarea id="prodDesc" rows="4" placeholder="Product description..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelProductBtn">Cancel</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Product
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Categories Tab -->
+                <div class="tab-content" id="categories">
+                    <div class="content-header">
+                        <div>
+                            <h2>Product Categories</h2>
+                            <p>Manage product categories</p>
+                        </div>
+                        <button class="btn btn-primary" id="addCategoryBtn">
+                            <i class="fas fa-plus"></i> Add Category
+                        </button>
+                    </div>
+                    <div class="categories-list" id="categoriesList"></div>
+                </div>
+
+                <!-- Site Info Tab -->
+                <div class="tab-content" id="site-info">
+                    <div class="content-header">
+                        <div>
+                            <h2>Site Information</h2>
+                            <p>Edit your website's basic information</p>
+                        </div>
+                    </div>
+                    <form class="admin-form" id="siteInfoForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Site Name *</label>
+                                <input type="text" id="siteName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tagline *</label>
+                                <input type="text" id="siteTagline" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Currency Symbol *</label>
+                                <input type="text" id="siteCurrency" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Facebook URL</label>
+                                <input type="url" id="siteFacebook">
+                            </div>
+                            <div class="form-group">
+                                <label>Instagram URL</label>
+                                <input type="url" id="siteInstagram">
+                            </div>
+                            <div class="form-group">
+                                <label>WhatsApp Number</label>
+                                <input type="text" id="siteWhatsapp">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Info Tab -->
+                <div class="tab-content" id="contact-info">
+                    <div class="content-header">
+                        <div>
+                            <h2>Contact Information</h2>
+                            <p>Update your business contact details</p>
+                        </div>
+                    </div>
+                    <form class="admin-form" id="contactInfoForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> Phone Number *</label>
+                                <input type="text" id="contactPhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope"></i> Email Address *</label>
+                                <input type="email" id="contactEmail" required>
+                            </div>
+                            <div class="form-group full">
+                                <label><i class="fas fa-location-dot"></i> Address *</label>
+                                <input type="text" id="contactAddress" required>
+                            </div>
+                            <div class="form-group full">
+                                <label><i class="fas fa-clock"></i> Working Hours *</label>
+                                <input type="text" id="contactHours" required>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Contact Info
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content" data-tilt>
+            <div class="modal-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <h3 id="modalTitle">Are you sure?</h3>
+            <p id="modalMessage">This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="modalCancel">Cancel</button>
+                <button class="btn btn-danger" id="modalConfirm">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Saved successfully</span>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/tilt.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
