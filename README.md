@@ -4,7 +4,7 @@
 
 <div align="center">
 
-# 🛒 JKMART — Grocery & Pansar Store
+# 🛒 QUICKCART — Grocery & Pansar Store
 
 **A modern, fully-responsive e-commerce website for a grocery and traditional pansar (herbs & spices) store, complete with a self-contained admin panel.**
 
@@ -21,7 +21,7 @@
 
 ## Overview
 
-**JKMART** is a complete e-commerce storefront for a grocery and pansar store, built in pure vanilla JavaScript — no frameworks, no build step, just clean, fast, hand-crafted code. It pairs a polished customer-facing website with a full admin panel for managing products, categories, and site content.
+**QUICKCART** is a complete e-commerce storefront for a grocery and pansar store, built in pure vanilla JavaScript — no frameworks, no build step, just clean, fast, hand-crafted code. It pairs a polished customer-facing website with a full admin panel for managing products, categories, and site content.
 
 It proves that a fast, beautiful, fully-functional store doesn't need a heavy framework — just solid fundamentals.
 
@@ -68,7 +68,7 @@ It proves that a fast, beautiful, fully-functional store doesn't need a heavy fr
 ## Structure
 
 ```
-jkmart/
+quickcart/
 ├── index.html          # Storefront
 ├── css/style.css       # Full design system
 ├── js/
