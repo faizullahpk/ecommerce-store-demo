@@ -1,17 +1,17 @@
-// ==================== JKMART DATA STORE ====================
+// ==================== QUICKCART DATA STORE ====================
 // All data is stored in localStorage and managed via this file
 
-const JKMART = {
+const QUICKCART = {
     // Default Site Information
     defaultSiteInfo: {
-        siteName: "JKMART",
+        siteName: "QUICKCART",
         tagline: "Everyday Essentials, Natural Wellness",
         phone: "+92 300 1234567",
-        email: "info@jkmart.com",
+        email: "info@quickcart.com",
         address: "Main Bazaar, Karachi, Pakistan",
         hours: "Mon - Sun: 9AM - 11PM",
-        facebook: "https://facebook.com/jkmart",
-        instagram: "https://instagram.com/jkmart",
+        facebook: "https://facebook.com/quickcart",
+        instagram: "https://instagram.com/quickcart",
         whatsapp: "+923001234567",
         currency: "Rs."
     },
@@ -164,28 +164,28 @@ const JKMART = {
 
     // Storage Methods
     getSiteInfo() {
-        const data = localStorage.getItem('jkmart_site_info');
+        const data = localStorage.getItem('quickcart_site_info');
         return data ? JSON.parse(data) : this.defaultSiteInfo;
     },
     saveSiteInfo(info) {
-        localStorage.setItem('jkmart_site_info', JSON.stringify(info));
+        localStorage.setItem('quickcart_site_info', JSON.stringify(info));
     },
     getCategories() {
-        const data = localStorage.getItem('jkmart_categories');
+        const data = localStorage.getItem('quickcart_categories');
         return data ? JSON.parse(data) : this.defaultCategories;
     },
     saveCategories(cats) {
-        localStorage.setItem('jkmart_categories', JSON.stringify(cats));
+        localStorage.setItem('quickcart_categories', JSON.stringify(cats));
     },
     getProducts() {
-        const data = localStorage.getItem('jkmart_products');
+        const data = localStorage.getItem('quickcart_products');
         if (data) return JSON.parse(data);
         const allProducts = [...this.defaultGroceryProducts, ...this.defaultPansarProducts];
         this.saveProducts(allProducts);
         return allProducts;
     },
     saveProducts(products) {
-        localStorage.setItem('jkmart_products', JSON.stringify(products));
+        localStorage.setItem('quickcart_products', JSON.stringify(products));
     },
     getGroceryProducts() {
         return this.getProducts().filter(p => p.section === 'grocery');
@@ -216,18 +216,18 @@ const JKMART = {
         this.saveProducts(products);
     },
     resetAll() {
-        localStorage.removeItem('jkmart_site_info');
-        localStorage.removeItem('jkmart_categories');
-        localStorage.removeItem('jkmart_products');
+        localStorage.removeItem('quickcart_site_info');
+        localStorage.removeItem('quickcart_categories');
+        localStorage.removeItem('quickcart_products');
     },
 
     // Cart Management
     getCart() {
-        const data = localStorage.getItem('jkmart_cart');
+        const data = localStorage.getItem('quickcart_cart');
         return data ? JSON.parse(data) : [];
     },
     saveCart(cart) {
-        localStorage.setItem('jkmart_cart', JSON.stringify(cart));
+        localStorage.setItem('quickcart_cart', JSON.stringify(cart));
     },
     addToCart(productId) {
         const cart = this.getCart();
