@@ -1,4 +1,4 @@
-// ==================== JKMART ADMIN PANEL ====================
+// ==================== QUICKCART ADMIN PANEL ====================
 
 const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' };
 
@@ -25,7 +25,7 @@ function initTilt() {
 
 // ==================== AUTH ====================
 function checkAuth() {
-    const loggedIn = sessionStorage.getItem('jkmart_admin_logged_in');
+    const loggedIn = sessionStorage.getItem('quickcart_admin_logged_in');
     if (loggedIn === 'true') {
         showAdmin();
     } else {
@@ -50,7 +50,7 @@ function initLogin() {
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value.trim();
         if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-            sessionStorage.setItem('jkmart_admin_logged_in', 'true');
+            sessionStorage.setItem('quickcart_admin_logged_in', 'true');
             showToast('Login successful!');
             setTimeout(showAdmin, 500);
         } else {
@@ -140,10 +140,10 @@ function switchTab(tabId) {
 
 // ==================== DASHBOARD ====================
 function loadDashboard() {
-    const products = JKMART.getProducts();
+    const products = QUICKCART.getProducts();
     const grocery = products.filter(p => p.section === 'grocery');
     const pansar = products.filter(p => p.section === 'pansar');
-    const categories = JKMART.getCategories();
+    const categories = QUICKCART.getCategories();
 
     animateValue('totalProducts', 0, products.length, 1000);
     animateValue('groceryCount', 0, grocery.length, 1000);
@@ -152,7 +152,7 @@ function loadDashboard() {
 
     // Recent products (last 5 added)
     const recent = [...products].slice(-5).reverse();
-    const info = JKMART.getSiteInfo();
+    const info = QUICKCART.getSiteInfo();
     document.getElementById('recentProducts').innerHTML = recent.map(p => `
         <div class="recent-product">
             <div class="recent-product-icon"><i class="fas ${p.icon || 'fa-box'}"></i></div>
@@ -180,7 +180,7 @@ function animateValue(id, start, end, duration) {
 
 // ==================== PRODUCTS TABLE ====================
 function loadProducts(filterSection = 'all', searchQuery = '') {
-    let products = JKMART.getProducts();
+    let products = QUICKCART.getProducts();
     if (filterSection !== 'all') {
         products = products.filter(p => p.section === filterSection);
     }
@@ -190,7 +190,7 @@ function loadProducts(filterSection = 'all', searchQuery = '') {
     }
 
     const tbody = document.getElementById('productsTableBody');
-    const info = JKMART.getSiteInfo();
+    const info = QUICKCART.getSiteInfo();
     if (products.length === 0) {
         tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:40px; color:var(--gray);">No products found</td></tr>';
         return;
@@ -251,10 +251,10 @@ function initProductForm() {
         };
 
         if (id) {
-            JKMART.updateProduct(id, product);
+            QUICKCART.updateProduct(id, product);
             showToast('Product updated successfully!');
         } else {
-            JKMART.addProduct(product);
+            QUICKCART.addProduct(product);
             showToast('Product added successfully!');
         }
         resetProductForm();
@@ -273,7 +273,7 @@ function resetProductForm() {
 }
 
 function editProduct(id) {
-    const product = JKMART.getProducts().find(p => p.id == id);
+    const product = QUICKCART.getProducts().find(p => p.id == id);
     if (!product) return;
     document.getElementById('productId').value = product.id;
     document.getElementById('prodName').value = product.name || '';
@@ -294,7 +294,7 @@ function editProduct(id) {
 
 function deleteProductConfirm(id) {
     showConfirmModal('Delete Product?', 'This product will be permanently removed.', () => {
-        JKMART.deleteProduct(id);
+        QUICKCART.deleteProduct(id);
         showToast('Product deleted!');
         loadProducts();
         loadDashboard();
@@ -303,7 +303,7 @@ function deleteProductConfirm(id) {
 
 // ==================== CATEGORIES ====================
 function loadCategories() {
-    const cats = JKMART.getCategories();
+    const cats = QUICKCART.getCategories();
     const list = document.getElementById('categoriesList');
     list.innerHTML = cats.map(c => `
         <div class="category-item" data-tilt>
@@ -322,9 +322,9 @@ function loadCategories() {
         const name = prompt('Category name:');
         if (!name) return;
         const icon = prompt('Font Awesome icon (e.g. fa-leaf):', 'fa-tag') || 'fa-tag';
-        const cats = JKMART.getCategories();
+        const cats = QUICKCART.getCategories();
         cats.push({ id: Date.now(), name, icon, count: 0 });
-        JKMART.saveCategories(cats);
+        QUICKCART.saveCategories(cats);
         loadCategories();
         loadDashboard();
         showToast('Category added!');
@@ -332,23 +332,23 @@ function loadCategories() {
 }
 
 function editCategory(id) {
-    const cats = JKMART.getCategories();
+    const cats = QUICKCART.getCategories();
     const cat = cats.find(c => c.id == id);
     if (!cat) return;
     const name = prompt('Category name:', cat.name);
     if (!name) return;
     const icon = prompt('Icon:', cat.icon) || cat.icon;
     cat.name = name; cat.icon = icon;
-    JKMART.saveCategories(cats);
+    QUICKCART.saveCategories(cats);
     loadCategories();
     showToast('Category updated!');
 }
 
 function deleteCategoryConfirm(id) {
     showConfirmModal('Delete Category?', 'This category will be permanently removed.', () => {
-        let cats = JKMART.getCategories();
+        let cats = QUICKCART.getCategories();
         cats = cats.filter(c => c.id != id);
-        JKMART.saveCategories(cats);
+        QUICKCART.saveCategories(cats);
         loadCategories();
         loadDashboard();
         showToast('Category deleted!');
@@ -357,7 +357,7 @@ function deleteCategoryConfirm(id) {
 
 // ==================== SITE INFO ====================
 function loadSiteInfoForm() {
-    const info = JKMART.getSiteInfo();
+    const info = QUICKCART.getSiteInfo();
     document.getElementById('siteName').value = info.siteName || '';
     document.getElementById('siteTagline').value = info.tagline || '';
     document.getElementById('siteCurrency').value = info.currency || 'Rs.';
@@ -369,21 +369,21 @@ function loadSiteInfoForm() {
 function initSiteInfoForm() {
     document.getElementById('siteInfoForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        const info = JKMART.getSiteInfo();
+        const info = QUICKCART.getSiteInfo();
         info.siteName = document.getElementById('siteName').value.trim();
         info.tagline = document.getElementById('siteTagline').value.trim();
         info.currency = document.getElementById('siteCurrency').value.trim();
         info.facebook = document.getElementById('siteFacebook').value.trim();
         info.instagram = document.getElementById('siteInstagram').value.trim();
         info.whatsapp = document.getElementById('siteWhatsapp').value.trim();
-        JKMART.saveSiteInfo(info);
+        QUICKCART.saveSiteInfo(info);
         showToast('Site info saved!');
     });
 }
 
 // ==================== CONTACT INFO ====================
 function loadContactInfoForm() {
-    const info = JKMART.getSiteInfo();
+    const info = QUICKCART.getSiteInfo();
     document.getElementById('contactPhone').value = info.phone || '';
     document.getElementById('contactEmail').value = info.email || '';
     document.getElementById('contactAddress').value = info.address || '';
@@ -393,12 +393,12 @@ function loadContactInfoForm() {
 function initContactInfoForm() {
     document.getElementById('contactInfoForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        const info = JKMART.getSiteInfo();
+        const info = QUICKCART.getSiteInfo();
         info.phone = document.getElementById('contactPhone').value.trim();
         info.email = document.getElementById('contactEmail').value.trim();
         info.address = document.getElementById('contactAddress').value.trim();
         info.hours = document.getElementById('contactHours').value.trim();
-        JKMART.saveSiteInfo(info);
+        QUICKCART.saveSiteInfo(info);
         showToast('Contact info saved!');
     });
 }
@@ -408,7 +408,7 @@ function initLogout() {
     document.getElementById('logoutBtn').addEventListener('click', (e) => {
         e.preventDefault();
         showConfirmModal('Logout?', 'You will be signed out of the admin panel.', () => {
-            sessionStorage.removeItem('jkmart_admin_logged_in');
+            sessionStorage.removeItem('quickcart_admin_logged_in');
             location.reload();
         }, 'Yes, Logout');
     });
