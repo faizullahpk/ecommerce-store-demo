@@ -1,4 +1,4 @@
-// ==================== JKMART MAIN SCRIPT ====================
+// ==================== QUICKCART MAIN SCRIPT ====================
 
 document.addEventListener('DOMContentLoaded', () => {
     initPreloader();
@@ -34,7 +34,7 @@ function initPreloader() {
 
 // ==================== SITE INFO LOADING ====================
 function loadSiteInfo() {
-    const info = JKMART.getSiteInfo();
+    const info = QUICKCART.getSiteInfo();
     document.getElementById('contactAddress').textContent = info.address;
     document.getElementById('contactPhone').textContent = info.phone;
     document.getElementById('contactEmail').textContent = info.email;
@@ -47,7 +47,7 @@ function loadSiteInfo() {
 // ==================== CATEGORIES ====================
 function renderCategories() {
     const grid = document.getElementById('categoriesGrid');
-    const categories = JKMART.getCategories();
+    const categories = QUICKCART.getCategories();
     grid.innerHTML = categories.map(cat => `
         <div class="category-card fade-up" data-tilt>
             <div class="category-icon"><i class="fas ${cat.icon}"></i></div>
@@ -65,7 +65,7 @@ function renderProducts(filterSection = 'all', filterCategory = 'all') {
 
 function renderProductSection(section, gridId, filterCategory = 'all') {
     const grid = document.getElementById(gridId);
-    let products = section === 'grocery' ? JKMART.getGroceryProducts() : JKMART.getPansarProducts();
+    let products = section === 'grocery' ? QUICKCART.getGroceryProducts() : QUICKCART.getPansarProducts();
     if (filterCategory !== 'all') {
         products = products.filter(p => p.category === filterCategory);
     }
@@ -79,7 +79,7 @@ function renderProductSection(section, gridId, filterCategory = 'all') {
 }
 
 function createProductCard(p) {
-    const info = JKMART.getSiteInfo();
+    const info = QUICKCART.getSiteInfo();
     const stars = '★'.repeat(Math.floor(p.rating)) + '☆'.repeat(5 - Math.floor(p.rating));
     return `
         <div class="product-card fade-up" data-id="${p.id}">
@@ -114,7 +114,7 @@ function createProductCard(p) {
 
 // ==================== CART ====================
 function addToCart(productId) {
-    JKMART.addToCart(productId);
+    QUICKCART.addToCart(productId);
     updateCartUI();
     showToast('Added to cart!');
     // Bounce animation on cart icon
@@ -124,9 +124,9 @@ function addToCart(productId) {
 }
 
 function updateCartUI() {
-    const cart = JKMART.getCart();
-    const products = JKMART.getProducts();
-    const info = JKMART.getSiteInfo();
+    const cart = QUICKCART.getCart();
+    const products = QUICKCART.getProducts();
+    const info = QUICKCART.getSiteInfo();
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     document.getElementById('cartCount').textContent = totalItems;
 
@@ -171,11 +171,11 @@ function updateCartUI() {
 }
 
 function changeQty(id, qty) {
-    JKMART.updateCartQty(id, qty);
+    QUICKCART.updateCartQty(id, qty);
     updateCartUI();
 }
 function removeFromCart(id) {
-    JKMART.removeFromCart(id);
+    QUICKCART.removeFromCart(id);
     updateCartUI();
     showToast('Removed from cart');
 }
@@ -284,7 +284,7 @@ function initEventListeners() {
 }
 
 function filterProductsBySearch(query) {
-    const allProducts = JKMART.getProducts();
+    const allProducts = QUICKCART.getProducts();
     ['grocery', 'pansar'].forEach(section => {
         const filtered = allProducts.filter(p => 
             p.section === section && 
